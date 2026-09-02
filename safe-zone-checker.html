@@ -1,0 +1,116 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Safe-Zone Checker — The Wealth Edit Toolbox</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Italiana&family=Lora:ital,wght@0,400;0,500;0,600;1,400&display=swap">
+<style>
+:root{--rose:#BE185D;--gold:#D97706;--blush:#FDF2F8;--ink:#0F172A;--muted:#64748B;--petal:#F7E3EB}
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:Lora,Georgia,serif;background:var(--blush);color:var(--ink);line-height:1.6;padding-bottom:60px}
+.wrap{max-width:900px;margin:0 auto;padding:0 20px}
+header{text-align:center;padding:44px 20px 8px}
+.brand{font-size:11px;font-weight:600;letter-spacing:.4em;text-transform:uppercase;color:var(--rose)}
+.brand a{color:inherit;text-decoration:none}
+h1{font-family:Italiana,serif;font-weight:400;font-size:clamp(32px,6vw,52px);margin:10px 0 6px}
+.sub{color:#33415C;max-width:600px;margin:0 auto 24px;font-size:15px}
+.drop{border:2px dashed var(--gold);border-radius:12px;background:#fff;min-height:120px;display:flex;align-items:center;justify-content:center;text-align:center;color:var(--muted);cursor:pointer;padding:22px;margin-bottom:18px}
+.drop.dragover{background:#FCF0F6;border-color:var(--rose)}
+.tabs{display:flex;flex-wrap:wrap;gap:8px;justify-content:center;margin-bottom:18px}
+.tab{border:1px solid var(--petal);background:#fff;border-radius:999px;padding:9px 18px;font:inherit;font-size:14px;cursor:pointer;min-height:44px}
+.tab[aria-pressed="true"]{background:var(--rose);color:#fff;border-color:var(--rose)}
+.stage{display:flex;justify-content:center}
+.frame{position:relative;background:#eee;overflow:hidden;border-radius:14px;box-shadow:0 18px 48px rgba(15,23,42,.18)}
+.frame img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;display:none}
+.frame img[src^="data"]{display:block}
+.zone{position:absolute;background:rgba(190,24,93,.34);display:flex;align-items:center;justify-content:center}
+.zone span{font-size:10px;font-weight:600;letter-spacing:.1em;text-transform:uppercase;color:#fff;text-shadow:0 1px 4px rgba(0,0,0,.5);padding:2px}
+.safe{position:absolute;border:2px dashed rgba(217,119,6,.95)}
+.verdict{max-width:640px;margin:20px auto 0;background:#fff;border-left:2px solid var(--gold);padding:14px 18px;font-size:14px;color:#33415C;border-radius:0 8px 8px 0}
+.small{font-size:12px;color:var(--muted);text-align:center;margin-top:14px}
+</style>
+</head>
+<body>
+<header>
+  <div class="brand"><a href="index.html">The Wealth Edit · Toolbox</a></div>
+  <h1>The Safe-Zone Checker</h1>
+  <p class="sub">Platforms draw buttons and captions over your design. Drop an image, pick a platform, and see exactly what survives — before you post, not after.</p>
+</header>
+<main class="wrap">
+  <div class="drop" id="drop" role="button" tabindex="0" aria-label="Choose or drop an image">
+    <span><strong>Drop an image here</strong> or tap to choose one.<br><span style="font-size:12px">Nothing uploads — it stays in your browser.</span></span>
+    <input id="file" type="file" accept="image/*" hidden>
+  </div>
+  <div class="tabs" id="tabs">
+    <button class="tab" data-mode="reels" aria-pressed="true">Instagram Reels / Story</button>
+    <button class="tab" data-mode="tiktok" aria-pressed="false">TikTok</button>
+    <button class="tab" data-mode="feed" aria-pressed="false">Feed 4:5 + grid crop</button>
+    <button class="tab" data-mode="etsy" aria-pressed="false">Etsy listing crop</button>
+  </div>
+  <div class="stage"><div class="frame" id="frame"><img id="img" alt="" src=""></div></div>
+  <div class="verdict" id="verdict"></div>
+  <p class="small">Zones per The Wealth Edit Visual Playbook, verified September 2026 · shaded = platform UI can cover it · dashed = keep your message inside</p>
+</main>
+<script>
+const MODES = {
+  reels: { w: 270, h: 480, label: 'Instagram Reels/Story · 1080×1920',
+    zones: [ {t:0,h:11.5,label:'UI ~220px'}, {b:0,h:22,label:'caption & audio ~420px'}, {r:0,w:11,t:24,hh:54,label:''} ],
+    safe: {t:11.5,b:22,l:3,r:12},
+    verdict: 'Keep every word and your product’s face inside the dashed area — the shaded bands are where Instagram draws its interface.' },
+  tiktok: { w: 270, h: 480, label: 'TikTok · 1080×1920',
+    zones: [ {t:0,h:7,label:'UI ~130px'}, {b:0,h:25,label:'caption & nav ~480px'}, {r:0,w:13,t:25,hh:50,label:'rail'} ],
+    safe: {t:7,b:25,l:3,r:14},
+    verdict: 'TikTok bites harder at the bottom and right than Instagram. A design safe for both clears ~220px top, ~480px bottom, ~140px right.' },
+  feed: { w: 320, h: 400, label: 'Instagram/Facebook feed · 1080×1350',
+    zones: [],
+    safe: {t:20,b:20,l:20,r:20},
+    verdict: 'The dashed box is the center 60% — your grid crops from this post unpredictably, so nothing essential lives outside it.' },
+  etsy: { w: 320, h: 400, label: 'Etsy listing · 4:5 working frame',
+    zones: [],
+    safe: {t:15,b:15,l:15,r:15},
+    verdict: 'The dashed box approximates the center 70%: Etsy’s search thumbnails crop differently on desktop and app, and this is the area that survives every variation.' },
+};
+let mode = 'reels';
+const frame = document.getElementById('frame'), img = document.getElementById('img'), verdict = document.getElementById('verdict');
+function render(){
+  const m = MODES[mode];
+  frame.style.width = m.w + 'px'; frame.style.height = m.h + 'px';
+  frame.querySelectorAll('.zone,.safe').forEach(e => e.remove());
+  m.zones.forEach(z => {
+    const d = document.createElement('div'); d.className = 'zone';
+    if (z.t !== undefined && z.h) { d.style.top = z.t + '%'; d.style.left = 0; d.style.right = 0; d.style.height = z.h + '%'; }
+    if (z.b !== undefined && z.h) { d.style.bottom = z.b + '%'; d.style.left = 0; d.style.right = 0; d.style.height = z.h + '%'; d.style.top = 'auto'; }
+    if (z.r !== undefined && z.w) { d.style.right = 0; d.style.top = z.t + '%'; d.style.height = z.hh + '%'; d.style.width = z.w + '%'; d.style.left = 'auto'; }
+    d.innerHTML = '<span>' + (z.label || '') + '</span>';
+    frame.appendChild(d);
+  });
+  const s = document.createElement('div'); s.className = 'safe';
+  s.style.top = m.safe.t + '%'; s.style.bottom = m.safe.b + '%'; s.style.left = m.safe.l + '%'; s.style.right = m.safe.r + '%';
+  frame.appendChild(s);
+  verdict.innerHTML = '<strong>' + m.label + ':</strong> ' + m.verdict;
+}
+document.getElementById('tabs').addEventListener('click', e => {
+  const b = e.target.closest('.tab'); if (!b) return;
+  mode = b.dataset.mode;
+  document.querySelectorAll('.tab').forEach(t => t.setAttribute('aria-pressed', t === b ? 'true' : 'false'));
+  render();
+});
+const drop = document.getElementById('drop'), file = document.getElementById('file');
+function load(f){
+  if (!f || !f.type.startsWith('image/')) return;
+  const r = new FileReader();
+  r.onload = () => { img.src = r.result; };
+  r.readAsDataURL(f);
+}
+drop.addEventListener('click', () => file.click());
+drop.addEventListener('keydown', e => { if (e.key === 'Enter' || e.key === ' ') file.click(); });
+file.addEventListener('change', () => load(file.files[0]));
+['dragover','dragenter'].forEach(ev => drop.addEventListener(ev, e => { e.preventDefault(); drop.classList.add('dragover'); }));
+['dragleave','drop'].forEach(ev => drop.addEventListener(ev, e => { e.preventDefault(); drop.classList.remove('dragover'); }));
+drop.addEventListener('drop', e => load(e.dataTransfer.files[0]));
+render();
+</script>
+</body>
+</html>
