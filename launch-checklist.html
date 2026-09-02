@@ -11,7 +11,7 @@
 *{box-sizing:border-box;margin:0;padding:0}
 body{font-family:Lora,Georgia,serif;background:var(--blush);color:var(--ink);line-height:1.6;padding-bottom:60px}
 .wrap{max-width:720px;margin:0 auto;padding:0 20px}
-header{text-align:center;padding:44px 20px 8px}
+header{text-align:center;padding:30px 20px 8px}
 .brand{font-size:11px;font-weight:600;letter-spacing:.4em;text-transform:uppercase;color:var(--rose)}
 .brand a{color:inherit;text-decoration:none}
 h1{font-family:Italiana,serif;font-weight:400;font-size:clamp(32px,6vw,52px);margin:10px 0 6px}
@@ -33,17 +33,23 @@ section h2{font-family:Italiana,serif;font-weight:400;font-size:24px;color:var(-
 .done-note{display:none;background:var(--ink);color:var(--blush);border-radius:10px;padding:20px;text-align:center;margin-bottom:16px}
 .done-note b{color:#FBBF24}
 
-.back{position:absolute;top:16px;left:16px;display:inline-flex;align-items:center;min-height:44px;padding:0 16px;border:1px solid var(--petal);background:#fff;border-radius:999px;font-size:13px;font-weight:600;color:var(--rose);text-decoration:none}
-@media(max-width:640px){.back{position:static;margin:0 0 14px}}
 .back:hover{background:#FCF0F6}
 .toolicon{width:44px;height:44px;color:var(--gold);margin:0 auto 6px;display:block}
 header{position:relative}
+
+.topbar{position:sticky;top:0;z-index:50;display:flex;align-items:center;justify-content:space-between;background:rgba(253,242,248,.94);backdrop-filter:blur(6px);border-bottom:1px solid var(--petal);padding:8px 14px}
+.topbar .backbtn{display:inline-flex;align-items:center;gap:8px;min-height:44px;padding:0 18px;background:var(--rose);color:#fff;border-radius:999px;font-size:14px;font-weight:600;text-decoration:none}
+.topbar .backbtn svg{width:16px;height:16px}
+.topbar .where{font-size:11px;font-weight:600;letter-spacing:.24em;text-transform:uppercase;color:var(--muted)}
+.bottomback{display:flex;justify-content:center;margin:34px 0 8px}
+.bottomback a{display:inline-flex;align-items:center;gap:8px;min-height:50px;padding:0 28px;background:#fff;border:1.5px solid var(--rose);color:var(--rose);border-radius:999px;font-size:15px;font-weight:600;text-decoration:none;white-space:nowrap}
+.bottomback a svg{flex:none}
+.bottomback a:hover{background:#FCF0F6}
 </style>
 </head>
 <body>
+<nav class="topbar"><a class="backbtn" href="index.html"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M19 12H5M12 19l-7-7 7-7"/></svg> All tools</a><span class="where">The Wealth Edit · Toolbox</span></nav>
 <header>
-<a class="back" href="index.html" aria-label="Back to the Toolbox">←&nbsp; The Toolbox</a>
-  <div class="brand"><a href="index.html">The Wealth Edit · Toolbox</a></div>
   <svg class="toolicon" viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="8" y="8" width="32" height="32" rx="6"/><path d="M16 24.5l6 6 10-12"/></svg>
   <h1>The Launch Checklist</h1>
   <p class="sub">Idea to open shop, in order. Tick as you go — progress saves in your browser and nowhere else.</p>
@@ -55,6 +61,7 @@ header{position:relative}
   <div id="lists"></div>
   <div class="actions"><button id="reset">Reset the list</button></div>
   <p class="small">From The Wealth Edit, Modules 01 &amp; 02 — the full method behind every line lives in the bundle.</p>
+<div class="bottomback"><a href="index.html"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M19 12H5M12 19l-7-7 7-7"/></svg> Back to the Toolbox</a></div>
 </main>
 <script>
 const SECTIONS = [
