@@ -28,11 +28,19 @@ input:focus,textarea:focus{outline:2px solid var(--rose);border-color:transparen
 .actions button{min-height:46px;padding:0 22px;border-radius:8px;border:1px solid var(--petal);background:#fff;font:inherit;cursor:pointer}
 .actions .primary{background:var(--rose);border-color:var(--rose);color:#fff;font-weight:600}
 .small{font-size:12px;color:var(--muted);text-align:center;margin-top:14px}
+
+.back{position:absolute;top:16px;left:16px;display:inline-flex;align-items:center;min-height:44px;padding:0 16px;border:1px solid var(--petal);background:#fff;border-radius:999px;font-size:13px;font-weight:600;color:var(--rose);text-decoration:none}
+@media(max-width:640px){.back{position:static;margin:0 0 14px}}
+.back:hover{background:#FCF0F6}
+.toolicon{width:44px;height:44px;color:var(--gold);margin:0 auto 6px;display:block}
+header{position:relative}
 </style>
 </head>
 <body>
 <header>
+<a class="back" href="index.html" aria-label="Back to the Toolbox">←&nbsp; The Toolbox</a>
   <div class="brand"><a href="index.html">The Wealth Edit · Toolbox</a></div>
+  <svg class="toolicon" viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M8 12a4 4 0 0 1 4-4h24a4 4 0 0 1 4 4v16a4 4 0 0 1-4 4H20l-8 8v-8h0a4 4 0 0 1-4-4z"/><path d="M31 13l1.2 2.8L35 17l-2.8 1.2L31 21l-1.2-2.8L27 17l2.8-1.2z" fill="currentColor" stroke="none"/><path d="M16 22h10" opacity=".55"/></svg>
   <h1>The Context Kit Builder</h1>
   <p class="sub">Ten minutes here, then every AI session starts smart: paste this block at the top of any chat and the assistant finally knows whose business it's working for. Your answers save in your browser only.</p>
 </header>

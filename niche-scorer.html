@@ -32,11 +32,19 @@ h1{font-family:Italiana,serif;font-weight:400;font-size:clamp(32px,6vw,52px);mar
 .result p{font-size:14px;color:#cbd5e1;max-width:520px;margin:0 auto}
 .result .win{color:#FBBF24}
 .small{font-size:12px;color:var(--muted);text-align:center;margin-top:16px}
+
+.back{position:absolute;top:16px;left:16px;display:inline-flex;align-items:center;min-height:44px;padding:0 16px;border:1px solid var(--petal);background:#fff;border-radius:999px;font-size:13px;font-weight:600;color:var(--rose);text-decoration:none}
+@media(max-width:640px){.back{position:static;margin:0 0 14px}}
+.back:hover{background:#FCF0F6}
+.toolicon{width:44px;height:44px;color:var(--gold);margin:0 auto 6px;display:block}
+header{position:relative}
 </style>
 </head>
 <body>
 <header>
+<a class="back" href="index.html" aria-label="Back to the Toolbox">←&nbsp; The Toolbox</a>
   <div class="brand"><a href="index.html">The Wealth Edit · Toolbox</a></div>
+  <svg class="toolicon" viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M24 6l5.3 11.3 12 1.5-8.9 8.3 2.3 11.9L24 33.2 13.3 39l2.3-11.9-8.9-8.3 12-1.5z"/></svg>
   <h1>The Niche Scorer</h1>
   <p class="sub">Score each idea 1–5 on the five criteria that matter. Highest total wins your 48-hour validation test — not your favourite. Scores save in your browser.</p>
 </header>

@@ -32,11 +32,19 @@ section h2{font-family:Italiana,serif;font-weight:400;font-size:24px;color:var(-
 .small{font-size:12px;color:var(--muted);text-align:center;margin-top:10px}
 .done-note{display:none;background:var(--ink);color:var(--blush);border-radius:10px;padding:20px;text-align:center;margin-bottom:16px}
 .done-note b{color:#FBBF24}
+
+.back{position:absolute;top:16px;left:16px;display:inline-flex;align-items:center;min-height:44px;padding:0 16px;border:1px solid var(--petal);background:#fff;border-radius:999px;font-size:13px;font-weight:600;color:var(--rose);text-decoration:none}
+@media(max-width:640px){.back{position:static;margin:0 0 14px}}
+.back:hover{background:#FCF0F6}
+.toolicon{width:44px;height:44px;color:var(--gold);margin:0 auto 6px;display:block}
+header{position:relative}
 </style>
 </head>
 <body>
 <header>
+<a class="back" href="index.html" aria-label="Back to the Toolbox">←&nbsp; The Toolbox</a>
   <div class="brand"><a href="index.html">The Wealth Edit · Toolbox</a></div>
+  <svg class="toolicon" viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="8" y="8" width="32" height="32" rx="6"/><path d="M16 24.5l6 6 10-12"/></svg>
   <h1>The Launch Checklist</h1>
   <p class="sub">Idea to open shop, in order. Tick as you go — progress saves in your browser and nowhere else.</p>
 </header>

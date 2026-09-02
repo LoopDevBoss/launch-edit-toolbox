@@ -30,11 +30,19 @@ td.num{font-variant-numeric:tabular-nums;white-space:nowrap}
 .hero-line{font-family:Italiana,serif;font-size:clamp(20px,4vw,30px);text-align:center;margin:18px 0 4px}
 .hero-line b{color:var(--rose);font-weight:400}
 @media(max-width:620px){ .hide-m{display:none} }
+
+.back{position:absolute;top:16px;left:16px;display:inline-flex;align-items:center;min-height:44px;padding:0 16px;border:1px solid var(--petal);background:#fff;border-radius:999px;font-size:13px;font-weight:600;color:var(--rose);text-decoration:none}
+@media(max-width:640px){.back{position:static;margin:0 0 14px}}
+.back:hover{background:#FCF0F6}
+.toolicon{width:44px;height:44px;color:var(--gold);margin:0 auto 6px;display:block}
+header{position:relative}
 </style>
 </head>
 <body>
 <header>
+<a class="back" href="index.html" aria-label="Back to the Toolbox">←&nbsp; The Toolbox</a>
   <div class="brand"><a href="index.html">The Wealth Edit · Toolbox</a></div>
+  <svg class="toolicon" viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="10" y="6" width="28" height="36" rx="4"/><path d="M16 14h16"/><path d="M17 24h.5M24 24h.5M31 24h.5M17 31h.5M24 31h.5M31 31h.5"/></svg>
   <h1>The Pricing Calculator</h1>
   <p class="sub">Your price, the real fees, what you keep — and how many sales your goal actually takes. Pre-tax honesty included, because your net is not your income.</p>
 </header>
